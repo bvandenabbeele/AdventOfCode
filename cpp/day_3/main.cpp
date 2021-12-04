@@ -96,7 +96,7 @@ void part_1(vector<string> &data, string &gamma, string &epsilon) {
 
 
 void cleanVector(vector<string> &data, int &index, int &bit) {
-  for (int i=data.size()-1; i>0; i--) {
+  for (int i=data.size()-1; i>-1; i--) {
     if ((int)data[i][index] - 48 != bit) {
       data.erase(data.begin() + i);
     }
@@ -104,31 +104,34 @@ void cleanVector(vector<string> &data, int &index, int &bit) {
 }
 
 
-void part_2(vector<string> &data) {
-  vector<string> oxy = data;
-  vector<string> co2 = data;
+void part_2(vector<string> &data, string &oxy, string &co2) {
+  vector<string> oxy_vec = data;
+  vector<string> co2_vec = data;
 
   for (int i=0; i<data[0].size(); i++) {
-      if (oxy.size() > 1) {
-        int b = mostCommonBit(oxy, i);
-        cleanVector(oxy, i, b);
+      if (oxy_vec.size() > 1) {
+        int b = mostCommonBit(oxy_vec, i);
+        if (b == -1) {
+          b = 1;
+        }
+        cleanVector(oxy_vec, i, b);
 
       }
-      if (co2.size() > 1) {
-        int b = leastCommonBit(co2, i);
-        cleanVector(co2, i, b);
+      if (co2_vec.size() > 1) {
+        int b = leastCommonBit(co2_vec, i);
+        if (b == -1) {
+          b = 0;
+        }
+        cleanVector(co2_vec, i, b);
       }
-      break;
   }
-  cout << oxy.size() << endl;
-  for (int i=0; i<oxy.size(); i++) {
-    cout << oxy[0] << endl;
-  }
+  oxy = oxy_vec[0];
+  co2 = co2_vec[0];
 }
 
 
 int main() {
-  vector<string> data = readFile("test_input.txt");
+  vector<string> data = readFile("input.txt");
 
   std::string gamma;
   std::string epsilon;
@@ -139,7 +142,14 @@ int main() {
 
   cout << d_gamma * d_epsilon << endl;
 
-  part_2(data);
+  std::string oxy;
+  std::string co2;
+  part_2(data, oxy, co2);
+
+  int d_oxy = decimal(oxy);
+  int d_co2 = decimal(co2);
+
+  cout << d_oxy * d_co2 << endl;
 
   return 0;
 }
