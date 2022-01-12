@@ -1,3 +1,3 @@
-# AdventOfCode2021
+# AdventOfCode
 
-Python/C++ solutions to [Advent Of Code 2021](https://adventofcode.com/).
+Python/C++ solutions to several years of [Advent Of Code](https://adventofcode.com/).
