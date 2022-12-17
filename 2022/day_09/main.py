@@ -56,11 +56,6 @@ def part_1(data):
         t, hist = move_tail(c, h, t)
         tail_hist |= hist
 
-    x = np.array([list(x) for x in tail_hist]).transpose()
-    plt.plot(x[0], x[1], "o")
-    plt.axis('equal')
-    plt.show()
-
     return len(tail_hist)
 
 
@@ -71,18 +66,15 @@ def part_2(data):
     tail_hist.add(tuple(knots[-1]))
 
     for c in data:
-        knots[0] = move_head(c, knots[0].copy())
+        for _ in range(c[1]):
+            ci = (c[0], 1)
+            knots[0] = move_head(ci, knots[0])
 
-        for i in range(1, len(knots)):
-            knots[i], hist = move_tail(c, knots[i-1], knots[i])
+            for i in range(1, len(knots)):
+                knots[i], hist = move_tail(ci, knots[i-1], knots[i])
 
-            if i == len(knots) - 1:
-                tail_hist |= hist
-
-    # x = np.array([list(x) for x in tail_hist]).transpose()
-    # plt.plot(x[0], x[1], "o")
-    # plt.axis('equal')
-    # plt.show()
+                if i == len(knots) - 1:
+                    tail_hist |= hist
 
     return len(tail_hist)
 
@@ -94,4 +86,4 @@ def main(fp):
 
 
 if __name__ == "__main__":
-    main("test_input.txt")
+    main("input.txt")
