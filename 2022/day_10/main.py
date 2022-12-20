@@ -41,7 +41,7 @@ def part_2(data):
     x = 1
     data_i = 0
     new_line = True
-    cpu = 240*["."]
+    cpu = 240*[" "]
     queue = dict()
     for t in range(240):
         if t in queue:
@@ -62,7 +62,7 @@ def part_2(data):
         else:
             new_line = True
 
-        if x-1 <= t <= x+1:
+        if x-1 <= t%40 <= x+1:
             cpu[t] = "#"
 
     cpu_string = "".join(cpu)
@@ -80,4 +80,4 @@ def main(fp):
 
 
 if __name__ == "__main__":
-    main("test_input.txt")
+    main("input.txt")
