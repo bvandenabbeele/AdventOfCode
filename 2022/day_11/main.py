@@ -47,12 +47,18 @@ def read_file(fp):
 
 
 def part_1(monkeys, item_dict, divide, rounds):
+    lcm = 1
+    for monkey in monkeys.values():
+        lcm *= monkey._test
+
     for _ in range(rounds):
         for monkey_id in range(len(item_dict)):
             monkey = monkeys[monkey_id]
 
             for item in item_dict[monkey_id]:
                 item = monkey.operation(item, divide)
+                if not divide:
+                    item %= lcm
                 new_id = monkey.test(item)
                 item_dict[new_id].append(item)
             
@@ -64,19 +70,10 @@ def part_1(monkeys, item_dict, divide, rounds):
     return counters[-2] * counters[-1]
 
 
-# def part_2(data):
-#     for i in range(10000):
-#         for monkey in data.values():
-#             for _ in range(len(monkey.items)):
-#                 new_lvl = eval(self._op.replace("old", str(self.items[index])))
-#                 items[index] = new_lvl
-#                 self.counter += 1
-
-
 def main(fp):
     data = read_file(fp)
     print(f"Part 1:\n{part_1(*data, True, 20)}")
-    # print(f"Part 2:\n{part_1(data, False, 10000)}")
+    print(f"Part 2:\n{part_1(*data, False, 10000)}")
 
 
 if __name__ == "__main__":
