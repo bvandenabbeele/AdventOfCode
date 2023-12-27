@@ -1,7 +1,5 @@
 import pathlib
 
-from matplotlib import pyplot as plt
-
 
 def read_input(fp):
     with open(pathlib.Path(__file__).parent / fp, "r") as f:
